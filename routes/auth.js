@@ -2,10 +2,10 @@
 const express = require('express');
 const router = express.Router();
 
-// import controller
+// importar controller
 const { signup, accountActivation, signin } = require('../controllers/auth');
 
-// import validators
+// importar Validator
 const { userSignupValidator, userSigninValidator } = require('../validators/auth');
 const { runValidation } = require('../validators');
 

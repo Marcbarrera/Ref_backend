@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 // sendgrid
 const sgMail = require('@sendgrid/mail');
@@ -110,20 +110,20 @@ exports.accountActivation = (req, res) => {
 
 exports.signin = (req, res) => {
     const { email, password } = req.body;
-    // check if user exist
+    // checkejar si l'user existeix
     User.findOne({ email }).exec((err, user) => {
         if (err || !user) {
             return res.status(400).json({
                 error: 'User with that email does not exist. Please signup'
             });
         }
-        // authenticate
+        // authentificació
         if (!user.authenticate(password)) {
             return res.status(400).json({
                 error: 'Email and password do not match'
             });
         }
-        // generate a token and send to client
+        // generar un token i enviar-l'ho al client
         const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
         const { _id, name, email, role } = user;
 
